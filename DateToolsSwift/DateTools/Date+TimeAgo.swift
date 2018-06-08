@@ -112,12 +112,17 @@ public extension Date {
         else if (components.day! >= 2) {
             return self.logicalLocalizedStringFromFormat(format: "%%d %@days ago", value: components.day!)
         }
-        else if (isYesterday) {
-            if (numericDates) {
-                return DateToolsLocalizedStrings("1 day ago");
-            }
-            
-            return DateToolsLocalizedStrings("Yesterday");
+        else if (components.day! >= 1) {
+			if (isYesterday) {
+				if (numericDates) {
+					return DateToolsLocalizedStrings("1 day ago");
+				}
+				
+				return DateToolsLocalizedStrings("Yesterday");
+			}
+			else {
+				return DateToolsLocalizedStrings("1 day ago")
+			}
         }
         else if (components.hour! >= 2) {
             return self.logicalLocalizedStringFromFormat(format: "%%d %@hours ago", value: components.hour!)
@@ -176,11 +181,8 @@ public extension Date {
         else if (components.weekOfYear! >= 1) {
             return self.logicalLocalizedStringFromFormat(format: "%%d%@w", value: components.weekOfYear!)
         }
-        else if (components.day! >= 2) {
+        else if (components.day! >= 1) {
             return self.logicalLocalizedStringFromFormat(format: "%%d%@d", value: components.day!)
-        }
-        else if (isYesterday) {
-            return self.logicalLocalizedStringFromFormat(format: "%%d%@d", value: 1)
         }
         else if (components.hour! >= 1) {
             return self.logicalLocalizedStringFromFormat(format: "%%d%@h", value: components.hour!)
